@@ -2,10 +2,17 @@
 const withPWA = require('next-pwa');
 const nextConfig = {
   swcMinify: true,
-  images: {
-    domains: ['cover.openbd.jp'],
-  },
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.googleusercontent.com",
+        port: "",
+        pathname: "**",
+      },
+    ]
+  },
   compiler: {
     removeConsole: process.env.NODE_ENV !== 'development',
   },
@@ -23,3 +30,5 @@ module.exports = () => {
   });
   return config;
 };
+
+module.exports = nextConfig;
