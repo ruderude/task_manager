@@ -15,7 +15,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1 className={styles.title}>Task Manager</h1>
+        <h1 className={styles.title}>Task Manager!!</h1>
       </main>
     </>
   )

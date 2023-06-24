@@ -1,5 +1,10 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import { custom } from 'openid-client';
+
+custom.setHttpOptionsDefaults({
+  timeout: 10000,
+});
 
 type ClientType = {
   clientId: string;
