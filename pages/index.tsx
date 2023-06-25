@@ -1,11 +1,30 @@
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import Link from 'next/link'
+import { prisma } from '@/lib/prisma'
 
-export default function Home() {
-  const { data: session } = useSession({ required: true });
+const getUser = async () => {
+  const user = await prisma.user.findMany()
+  return user
+}
+
+export default async function Home() {
+  const { data: session } = useSession({ required: true })
+  const user = await getUser()
+  // const [user, setUser] = useState(null);
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const response = await fetch('/api/user'); // ユーザーデータを取得するAPIエンドポイントのパス
+  //     const data = await response.json();
+  //     setUser(data);
+  //   }
+
+  //   fetchData();
+  // }, []);
 
   return (
     <>
@@ -31,6 +50,15 @@ export default function Home() {
                 <Link href={`/previous`}>過去のタスク</Link>
               </div>
               <button onClick={() => signOut()}>Sign out</button>
+              <br />
+              { user &&
+                user.map((user) => (
+                  <div key={user.id}>
+                    <div>{user.name}</div>
+                    <div>{user.email}</div>
+                  </div>
+                ))
+              }
             </div>
           )
         }
