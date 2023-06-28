@@ -1,5 +1,13 @@
 import { getSession } from 'next-auth/react';
 
+// interface Props {
+//   user: {
+//     name: string;
+//     email: string;
+//     image: string;
+//   }
+// }
+
 export default function about({ user }: { user: any }) {
   if (user) {
     return <h1>{user.name}</h1>;
@@ -9,9 +17,13 @@ export default function about({ user }: { user: any }) {
 
 export async function getServerSideProps(ctx: any) {
   const session = await getSession(ctx);
+
   if (!session) {
     return {
-      props: {},
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
     };
   }
   const { user } = session;
