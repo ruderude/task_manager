@@ -1,36 +1,21 @@
-import React from 'react';
-import { useSession, signIn, signOut } from 'next-auth/react';
-import { NextPage } from 'next';
-import Link from 'next/link'
+import { getSession } from 'next-auth/react';
 
-const Previous: NextPage = () => {
-  const { data: session } = useSession({ required: true });
+export default function about({ user }: { user: any }) {
+  if (user) {
+    return <h1>{user.name}</h1>;
+  }
+  return <h1>No Page</h1>;
+}
 
-  return (
-    <>
-      {
-        session && (
-          <>
-            <div>
-              <h1>Previousようこそ, {session.user && session.user.email}</h1>
-              <button onClick={() => signOut()}>ログアウト</button>
-            </div>
-            <div>
-              <Link href={`/`}>現在のタスク</Link>
-            </div>
-          </>
-        )
-      }
-      {
-        !session && (
-          <div>
-            {/* <p>ログインが必要です</p>
-            <button onClick={() => signIn()}>ログイン</button> */}
-          </div>
-        )
-      }
-    </>
-  );
-};
-
-export default Previous;
+export async function getServerSideProps(ctx: any) {
+  const session = await getSession(ctx);
+  if (!session) {
+    return {
+      props: {},
+    };
+  }
+  const { user } = session;
+  return {
+    props: { user },
+  };
+}
