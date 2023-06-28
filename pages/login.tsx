@@ -3,7 +3,7 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import { NextPage } from 'next';
 
 const Login: NextPage = () => {
-  const { data: session } = useSession();
+  const { data: session } = useSession({ required: true })
 
   // sessionがあれば「/」にリダイレクト
   useEffect(() => {
