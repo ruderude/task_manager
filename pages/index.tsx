@@ -1,16 +1,21 @@
-import { useEffect, useState } from 'react';
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '@/styles/Home.module.css'
+import { getSession } from 'next-auth/react'
 import { useSession, signIn, signOut } from 'next-auth/react'
+import Head from 'next/head'
 import Link from 'next/link'
+import Image from 'next/image'
 
-export default function Home() {
-  const { data: session } = useSession({ required: true })
-  const name = session?.user?.name ?? 'ななしさん'
-  const mail = session?.user?.email ?? 'メールアドレスなし'
-  const image = session?.user?.image as string ?? 'https://placehold.jp/150x150.png'
+interface Props {
+  user: {
+    name: string
+    email: string
+    image: string
+  }
+}
 
+export default function Home({ user }: Props) {
+  if (!user) {
+    return <h1>No Page</h1>
+  }
   return (
     <>
       <Head>
@@ -20,42 +25,39 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        {
-          session && (
+        <div>
+          <h1>Topページ</h1>
+          <h2>ようこそ, {user.name}</h2>
+          <div>{user.email}</div>
+          <div>{user.image}</div>
+          {
             <div>
-              <h1 className={styles.title}>Task Manager!!</h1>
-              <h2>ようこそ, {name}</h2>
-              <div>{mail}</div>
-              <div>{image}</div>
-              {
-                <div>
-                  <Image src={image} alt="" width={96} height={96} />
-                </div>
-              }
-              <div>
-                <Link href={`/previous`}>過去のタスク</Link>
-              </div>
-              <button onClick={() => signOut()}>Sign out</button>
-              <div>
-                {/* session内のデータをJson表示する */}
-                <pre>{JSON.stringify(session, null, 2)}</pre>
-              </div>
+              <Image src={user.image} alt="" width={96} height={96} />
             </div>
-          )
-        }
-        {
-          !session && (
-            <>
-              {/* <div>
-                <p>ログインが必要です</p>
-              </div>
-              <div>
-                <button onClick={() => signIn()}>ログイン</button>
-              </div> */}
-            </>
-          )
-        }
+          }
+          <div>
+            <Link href={`/previous`}>過去のタスク</Link>
+          </div>
+          <button onClick={() => signOut()}>Sign out</button>
+        </div>
       </main>
     </>
   )
+}
+
+export async function getServerSideProps(ctx: any) {
+  const session = await getSession(ctx)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
+  const { user } = session
+  return {
+    props: { user },
+  }
 }
