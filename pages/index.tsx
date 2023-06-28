@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import styles from '@/styles/Home.module.css'
 import Head from 'next/head'
@@ -7,15 +8,24 @@ import Image from 'next/image'
 export default function Home() {
   const { data: session } = useSession({ required: true })
 
+  const protocol = window.location.protocol
+  const host = window.location.host
+  const url = protocol + "//" + host
+  const getAllUrl = url + "/api/task/all"
+
+  useEffect(() => {
+    fetch(getAllUrl)
+      .then(data => data.json())
+      .then((res) => {
+        console.log("success")
+        console.log("res", res)
+      })
+  }, []);
+
   if (!session) {
-    return <h1>No Page</h1>
+    return <h1>Now Loading.....</h1>
   }
 
-  const name = session.user?.name ?? 'ななしさん'
-  const email = session.user?.email ?? 'ななし@ななし.com'
-  const image = session.user?.image as string ?? 'https://placehold.jp/150x150.png'
-
-  
   return (
     <>
       <Head>
@@ -27,18 +37,29 @@ export default function Home() {
       <main>
         <div>
           <h1>Topページ</h1>
-          <h2>ようこそ, {name}</h2>
+          {/* <h2>ようこそ, {name}</h2>
           <div>{email}</div>
           <div>{image}</div>
           {
             <div>
               <Image src={image} alt="" width={96} height={96} />
             </div>
-          }
+          } */}
           <div>
             <Link href={`/previous`}>過去のタスク</Link>
           </div>
           <button onClick={() => signOut()}>Sign out</button>
+          {/* {allTask ?
+            allTask.map((task: any) => {
+              return (
+                <div key={task.id}>
+                  <div>{task.title}</div>
+                </div>
+              )
+            })
+            :
+            <div>タスクがありません</div>
+          } */}
         </div>
       </main>
     </>
