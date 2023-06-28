@@ -7,6 +7,9 @@ import Link from 'next/link'
 
 export default function Home() {
   const { data: session } = useSession({ required: true })
+  const name = session?.user?.name ?? 'ななしさん'
+  const mail = session?.user?.email ?? 'メールアドレスなし'
+  const image = session?.user?.image as string ?? 'https://placehold.jp/150x150.png'
 
   return (
     <>
@@ -21,13 +24,14 @@ export default function Home() {
           session && (
             <div>
               <h1 className={styles.title}>Task Manager!!</h1>
-              <h2>ようこそ, {session.user && session.user.name}</h2>
-              <div>{session.user?.email}</div>
-              {/* {session.user?.image && (
+              <h2>ようこそ, {name}</h2>
+              <div>{mail}</div>
+              <div>{image}</div>
+              {
                 <div>
-                  <Image src={session.user?.image} alt="" width={96} height={96} />
+                  <Image src={image} alt="" width={96} height={96} />
                 </div>
-              )} */}
+              }
               <div>
                 <Link href={`/previous`}>過去のタスク</Link>
               </div>
