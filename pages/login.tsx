@@ -15,6 +15,7 @@ const Login: NextPage = () => {
 
   return (
     <>
+      <h1>Now Loading.....</h1>
     </>
   );
 };
