@@ -15,14 +15,6 @@ const Login: NextPage = () => {
 
   return (
     <>
-      {
-        !session && (
-          <div>
-            <p>ログインしてください</p>
-            <button onClick={() => signIn()}>ログイン</button>
-          </div>
-        )
-      }
     </>
   );
 };
