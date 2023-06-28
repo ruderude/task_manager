@@ -21,7 +21,7 @@ export default function Home() {
           session && (
             <div>
               <h1 className={styles.title}>Task Manager!!</h1>
-              <h2>ようこそ, {session.user && session.user.email}</h2>
+              <h2>ようこそ, {session.user && session.user.name}</h2>
               <div>{session.user?.email}</div>
               {/* {session.user?.image && (
                 <div>
@@ -32,6 +32,14 @@ export default function Home() {
                 <Link href={`/previous`}>過去のタスク</Link>
               </div>
               <button onClick={() => signOut()}>Sign out</button>
+              <div>
+                {/* session内のデータをループですべて表示する */}
+                {Object.entries(session).map(([key, value]) => (
+                  <div key={key}>
+                    <strong>{key}: </strong> {value}
+                  </div>
+                ))}
+              </div>
             </div>
           )
         }
