@@ -33,12 +33,8 @@ export default function Home() {
               </div>
               <button onClick={() => signOut()}>Sign out</button>
               <div>
-                {/* session内のデータをループですべて表示する */}
-                {Object.entries(session).map(([key, value]) => (
-                  <div key={key}>
-                    <strong>{key}: </strong> {value}
-                  </div>
-                ))}
+                {/* session内のデータをJson表示する */}
+                <pre>{JSON.stringify(session, null, 2)}</pre>
               </div>
             </div>
           )
