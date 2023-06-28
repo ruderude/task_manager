@@ -15,26 +15,19 @@ type ClientType = {
 
 const prisma = new PrismaClient()
 
-const authOptions: NextAuthOptions = {
+export default NextAuth({
+  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     } as ClientType),
   ],
-  adapter: PrismaAdapter(prisma),
   callbacks: {
-    async session(params) {
-      return Promise.resolve({
-        ...params.session,
-        user: {
-          ...params.session.user,
-          id: params.user.id,
-        },
-      });
+    async signIn({ user, account, profile, email, credentials }) {
+      console.log('サインイン');
+      return true;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
-}
-
-export default NextAuth(authOptions)
+});
