@@ -1,22 +1,21 @@
-import { getSession } from 'next-auth/react'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import styles from '@/styles/Home.module.css'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 
-interface Props {
-  user: {
-    name: string
-    email: string
-    image: string
-  }
-}
+export default function Home() {
+  const { data: session } = useSession({ required: true })
 
-export default function Home({ user }: Props) {
-  if (!user) {
+  if (!session) {
     return <h1>No Page</h1>
   }
+
+  const name = session.user?.name ?? 'ななしさん'
+  const email = session.user?.email ?? 'ななし@ななし.com'
+  const image = session.user?.image as string ?? 'https://placehold.jp/150x150.png'
+
+  
   return (
     <>
       <Head>
@@ -28,12 +27,12 @@ export default function Home({ user }: Props) {
       <main>
         <div>
           <h1>Topページ</h1>
-          <h2>ようこそ, {user.name}</h2>
-          <div>{user.email}</div>
-          <div>{user.image}</div>
+          <h2>ようこそ, {name}</h2>
+          <div>{email}</div>
+          <div>{image}</div>
           {
             <div>
-              <Image src={user.image} alt="" width={96} height={96} />
+              <Image src={image} alt="" width={96} height={96} />
             </div>
           }
           <div>
@@ -44,21 +43,4 @@ export default function Home({ user }: Props) {
       </main>
     </>
   )
-}
-
-export async function getServerSideProps(ctx: any) {
-  const session = await getSession(ctx)
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-  const { user } = session
-  return {
-    props: { user },
-  }
 }
