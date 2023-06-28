@@ -26,7 +26,6 @@ export default function Home() {
               <h1 className={styles.title}>Task Manager!!</h1>
               <h2>ようこそ, {name}</h2>
               <div>{mail}</div>
-              <div>{image}</div>
               {
                 <div>
                   <Image src={image} alt="" width={96} height={96} />
@@ -36,10 +35,6 @@ export default function Home() {
                 <Link href={`/previous`}>過去のタスク</Link>
               </div>
               <button onClick={() => signOut()}>Sign out</button>
-              <div>
-                {/* session内のデータをJson表示する */}
-                <pre>{JSON.stringify(session, null, 2)}</pre>
-              </div>
             </div>
           )
         }
