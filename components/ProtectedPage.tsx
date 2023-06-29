@@ -10,7 +10,7 @@ const ProtectedPage = ({children}: Props) => {
   if(loading) return null
 
   if(!loading && !session) {
-    return <button  onClick={() => signIn('google')}>Sign in with Google</button>
+    return <button  onClick={() => signIn()}>ログイン</button>
   }
   return (
     <div>
