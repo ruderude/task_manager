@@ -78,41 +78,25 @@ export default function Home() {
       <main>
         <div>
           <h1>Topページ</h1>
-          {
-            user.id ?
-              <>
-                <h2>ようこそ, {user.name}</h2>
-                <div>{user.email}</div>
-                <div>{user.image}</div>
-              </>
-              :
-              <>
-                <h1>Now User Loading.....</h1>
-              </>
-          }
-          {/* <h2>ようこそ, {user.name}</h2>
-          <div>{user.email}</div>
-          <div>{user.image}</div> */}
-          {/* {
-            <div>
-              <Image src={image} alt="" width={96} height={96} />
-            </div>
-          } */}
-          <div>
-            <Link href={`/previous`}>過去のタスク</Link>
-          </div>
-          <button onClick={() => signOut()}>Sign out</button>
-          {/* {allTask ?
-            allTask.map((task: any) => {
-              return (
-                <div key={task.id}>
-                  <div>{task.title}</div>
+          {user.id ?
+            <>
+              <h2>ようこそ, {user.name}</h2>
+              <div>{user.email}</div>
+              {user.image &&
+                <div>
+                  <Image src={user.image} alt="" width={96} height={96} />
                 </div>
-              )
-            })
+              }
+              <div>
+                <Link href={`/previous`}>過去のタスク</Link>
+              </div>
+              <button onClick={() => signOut()}>Sign out</button>
+            </>
             :
-            <div>タスクがありません</div>
-          } */}
+            <>
+              <h1>Now User Loading.....</h1>
+            </>
+          }
         </div>
       </main>
     </>
