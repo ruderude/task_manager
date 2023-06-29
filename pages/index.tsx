@@ -64,7 +64,9 @@ export default function Home() {
   }, [session])
 
   if (!session) {
-    return <h1>Now Loading.....</h1>
+    return (<div className={styles.main}>
+      <h1 className={styles.loading}>Now Loading.....</h1>
+    </div>)
   }
 
   return (
@@ -93,9 +95,9 @@ export default function Home() {
               <button onClick={() => signOut()}>Sign out</button>
             </>
             :
-            <>
-              <h1>Now User Loading.....</h1>
-            </>
+            <div className={styles.main}>
+              <h1 className={styles.loading}>Now Loading.....</h1>
+            </div>
           }
         </div>
       </main>
