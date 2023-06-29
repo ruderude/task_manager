@@ -33,7 +33,7 @@ export default function Home() {
       }
     }
     fetchAllTask()
-  }, [session])
+  }, [])
 
   if (!session) {
     return <h1>Now Loading.....</h1>
