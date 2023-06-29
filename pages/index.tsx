@@ -8,17 +8,15 @@ import Image from 'next/image'
 export default function Home() {
   const { data: session } = useSession({ required: true })
 
-  const email = session?.user?.email ?? ''
-  const protocol = window.location.protocol
-  const host = window.location.host
-  const url = protocol + "//" + host
-  const params = {email : email};
-  const query = new URLSearchParams(params)
-
-  const getAllUrl = url + `/api/task/all?${query}`
-
   useEffect(() => {
-
+    const email = session?.user?.email ?? ''
+    const protocol = window.location.protocol
+    const host = window.location.host
+    const url = protocol + "//" + host
+    const params = {email : email};
+    const query = new URLSearchParams(params)
+    const getAllUrl = url + `/api/task/all?${query}`
+    
     const fetchAllTask = async () => {
       try {
         const res = await fetch(getAllUrl)
@@ -32,7 +30,8 @@ export default function Home() {
         console.log('done')
       }
     }
-  }, [])
+    fetchAllTask()
+  }, [session])
 
   if (!session) {
     return <h1>Now Loading.....</h1>
