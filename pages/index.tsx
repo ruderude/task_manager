@@ -9,6 +9,8 @@ export default function Home() {
   const { data: session } = useSession({ required: true })
 
   useEffect(() => {
+    console.log('useEffect')
+    console.log('session', session)
     const email = session?.user?.email ?? ''
     const protocol = window.location.protocol
     const host = window.location.host
