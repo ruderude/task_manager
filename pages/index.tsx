@@ -5,8 +5,27 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 
+interface UserProps {
+  name: string
+  email: string
+  image: string
+}
+
+const initialUser = {
+  name: '',
+  email: '',
+  image: '',
+}
+
+const afterUser = {
+  name: 'taro',
+  email: 'test@test.com',
+  image: 'testtest',
+}
+
 export default function Home() {
   const { data: session } = useSession({ required: true })
+  const [user, setUser] = useState<UserProps>(initialUser)
 
   useEffect(() => {
     console.log('useEffect')
@@ -25,6 +44,7 @@ export default function Home() {
         if (res.ok) {
           const fetchData = await res.json()
           console.log(fetchData)
+          setUser(afterUser)
         }
       } catch (error) {
         console.error({ error })
@@ -50,10 +70,10 @@ export default function Home() {
       <main>
         <div>
           <h1>Topページ</h1>
-          {/* <h2>ようこそ, {name}</h2>
-          <div>{email}</div>
-          <div>{image}</div>
-          {
+          <h2>ようこそ, {user.name}</h2>
+          <div>{user.email}</div>
+          <div>{user.image}</div>
+          {/* {
             <div>
               <Image src={image} alt="" width={96} height={96} />
             </div>
