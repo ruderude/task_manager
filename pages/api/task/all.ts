@@ -10,5 +10,5 @@ export default function handler(
   res: NextApiResponse<Data>
 ) {
   console.log('req', req)
-  res.status(200).json({ name: 'John Doe', age: 20 })
+  res.status(200).json({ name: 'John All', age: 27 })
 }

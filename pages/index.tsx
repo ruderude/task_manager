@@ -8,19 +8,31 @@ import Image from 'next/image'
 export default function Home() {
   const { data: session } = useSession({ required: true })
 
+  const email = session?.user?.email ?? ''
   const protocol = window.location.protocol
   const host = window.location.host
   const url = protocol + "//" + host
-  const getAllUrl = url + "/api/task/all"
+  const params = {email : email};
+  const query = new URLSearchParams(params)
+
+  const getAllUrl = url + `/api/task/all?${query}`
 
   useEffect(() => {
-    fetch(getAllUrl)
-      .then(data => data.json())
-      .then((res) => {
-        console.log("success")
-        console.log("res", res)
-      })
-  }, []);
+
+    const fetchAllTask = async () => {
+      try {
+        const res = await fetch(getAllUrl)
+        if (res.ok) {
+          const fetchData = await res.json()
+          console.log(fetchData)
+        }
+      } catch (error) {
+        console.error({ error })
+      } finally {
+        console.log('done')
+      }
+    }
+  }, [])
 
   if (!session) {
     return <h1>Now Loading.....</h1>
