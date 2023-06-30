@@ -64,9 +64,12 @@ export default function Home() {
       })
 
       if (res.ok) {
-        alert('タスクを追加しました。')
+        // alert('タスクを追加しました。')
         // alert(JSON.stringify(res))
         clearForm()
+        setTasks([])
+        const email = user.email as string
+        fetchAllTask(email)
         return
       }
       alert('タスクの追加に失敗しました。')
@@ -91,33 +94,33 @@ export default function Home() {
     )
   }
 
+  const fetchAllTask = async (email: string) => {
+    const params = {email : email};
+    const query = new URLSearchParams(params)
+    const getAllUrl = `${url}/api/task/all?${query}`
+    try {
+      const res = await fetch(getAllUrl)
+      if (res.ok) {
+        const fetchData = await res.json()
+        console.log('fetchData', fetchData)
+        setUser(fetchData.user)
+        setTasks(fetchData.tasks)
+        // alert(JSON.stringify(fetchData))
+      }
+    } catch (error) {
+      alert('エラーです。')
+      alert(JSON.stringify(error))
+      console.error({ error })
+    } finally {
+      console.log('done')
+    }
+  }
+
   useEffect(() => {
     // console.log('session', session)
     const email = session?.user?.email ?? ''
     // const email = 'rude1979@gmail.com'
-    const params = {email : email};
-    const query = new URLSearchParams(params)
-    const getAllUrl = `${url}/api/task/all?${query}`
-    
-    const fetchAllTask = async () => {
-      try {
-        const res = await fetch(getAllUrl)
-        if (res.ok) {
-          const fetchData = await res.json()
-          console.log('fetchData', fetchData)
-          setUser(fetchData.user)
-          setTasks(fetchData.tasks)
-          // alert(JSON.stringify(fetchData))
-        }
-      } catch (error) {
-        alert('エラーです。')
-        alert(JSON.stringify(error))
-        console.error({ error })
-      } finally {
-        console.log('done')
-      }
-    }
-    fetchAllTask()
+    fetchAllTask(email)
   }, [session?.user?.email, url])
 
   if (!session) {
