@@ -67,6 +67,7 @@ export default function Home() {
         alert('タスクを追加しました。')
         alert(JSON.stringify(res))
         clearForm()
+        return
       }
       alert('タスクの追加に失敗しました。')
     } catch (error) {
