@@ -39,16 +39,36 @@ export default function Home() {
   // const session = true
   const [user, setUser] = useState<UserProps>(initialUser)
   const [tasks, setTasks] = useState<TaskProps[]>([])
+  const protocol = window.location.protocol
+  const host = window.location.host
+  const url = protocol + "//" + host
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>()
 
-  const sendForm: SubmitHandler<Inputs> = (data) => {
+  const sendForm: SubmitHandler<Inputs> = async (data) => {
     alert(JSON.stringify(data))
     console.log(data)
+    if (!user.id) {
+      alert('ユーザー情報が取得できませんでした。')
+      return
+    }
+    const params = {userId : user.id, task : data.task};
+    const query = new URLSearchParams(params)
+    const postTaskUrl = url + `/api/task/create?${query}`
+    try {
+      const res = await fetch(postTaskUrl)
+      if (res.ok) {
+        alert('タスクを追加しました。')
+        clearForm()
+      }
+    } catch (error) {
+      console.error({ error })
+    } finally {
+      console.log('done')
+    }
   }
 
   const clearForm = () => {
@@ -69,9 +89,6 @@ export default function Home() {
     // console.log('session', session)
     const email = session?.user?.email ?? ''
     // const email = 'rude1979@gmail.com'
-    const protocol = window.location.protocol
-    const host = window.location.host
-    const url = protocol + "//" + host
     const params = {email : email};
     const query = new URLSearchParams(params)
     const getAllUrl = url + `/api/task/all?${query}`
@@ -133,7 +150,7 @@ export default function Home() {
               <div>
                 <form onSubmit={handleSubmit(sendForm)}>
                   <div>
-                    <label htmlFor="task">タスク</label>
+                    <label htmlFor="task">新規タスク追加</label>
                   </div>
                   <div className={styles.new_task}>
                     <div>
@@ -147,8 +164,8 @@ export default function Home() {
                             message: 'タスクの入力は必須です。',
                           },
                           maxLength: {
-                            value: 8,
-                            message: '8文字以下で入力してください。',
+                            value: 250,
+                            message: '250文字以下で入力してください。',
                           },
                         })}
                       />
