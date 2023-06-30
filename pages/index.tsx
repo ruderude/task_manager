@@ -103,6 +103,9 @@ export default function Home() {
                 </div>
               </div>
               <br />
+              <div className={styles.new_task}>
+              </div>
+              <br />
               <hr />
               <br />
               <h2>現在のタスク一覧</h2>
