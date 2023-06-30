@@ -35,8 +35,8 @@ const initialUser = {
 }
 
 export default function Home() {
-  // const { data: session } = useSession({ required: true })
-  const session = true
+  const { data: session } = useSession({ required: true })
+  // const session = true
   const [user, setUser] = useState<UserProps>(initialUser)
   const [tasks, setTasks] = useState<TaskProps[]>([])
   const url = process.env.NEXT_PUBLIC_BASE_URL
@@ -47,8 +47,7 @@ export default function Home() {
   } = useForm<Inputs>()
 
   const sendForm: SubmitHandler<Inputs> = async (data) => {
-    alert(JSON.stringify(data))
-    console.log(data)
+    // alert(JSON.stringify(data))
     if (!user.id) {
       alert('ユーザー情報が取得できませんでした。')
       return
@@ -93,8 +92,8 @@ export default function Home() {
 
   useEffect(() => {
     // console.log('session', session)
-    // const email = session?.user?.email ?? ''
-    const email = 'rude1979@gmail.com'
+    const email = session?.user?.email ?? ''
+    // const email = 'rude1979@gmail.com'
     const params = {email : email};
     const query = new URLSearchParams(params)
     const getAllUrl = `${url}/api/task/all?${query}`
@@ -118,7 +117,7 @@ export default function Home() {
       }
     }
     fetchAllTask()
-  }, [url])
+  }, [session?.user?.email, url])
 
   if (!session) {
     loadingNode()
