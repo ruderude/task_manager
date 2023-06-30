@@ -33,7 +33,7 @@ export default function Home() {
   const { data: session } = useSession({ required: true })
   // const session = true
   const [user, setUser] = useState<UserProps>(initialUser)
-  const [tasks, setTasks] = useState<any>([])
+  const [tasks, setTasks] = useState<TaskProps[]>([])
 
   useEffect(() => {
     console.log('useEffect')
@@ -54,6 +54,7 @@ export default function Home() {
           const fetchData = await res.json()
           console.log('fetchData', fetchData)
           setUser(fetchData.user)
+          setTasks(fetchData.tasks)
           // alert(JSON.stringify(fetchData))
         }
       } catch (error) {
