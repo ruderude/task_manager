@@ -39,7 +39,6 @@ export default function Home() {
   // const session = true
   const [user, setUser] = useState<UserProps>(initialUser)
   const [tasks, setTasks] = useState<TaskProps[]>([])
-  const [isDisabled, setDisabled] = useState<boolean>(false)
   const url = process.env.NEXT_PUBLIC_BASE_URL
   const {
     register,
@@ -53,7 +52,6 @@ export default function Home() {
       alert('ユーザー情報が取得できませんでした。')
       return
     }
-    setDisabled(true)
     const params = {userId : user.id, task : data.task};
     const postTaskUrl = `${url}/api/task/create`
     try {
@@ -69,7 +67,6 @@ export default function Home() {
         // alert('タスクを追加しました。')
         // alert(JSON.stringify(res))
         clearForm()
-        setTasks([])
         const email = user.email as string
         fetchAllTask(email)
         return
@@ -80,7 +77,6 @@ export default function Home() {
       console.error({ error })
     } finally {
       console.log('done')
-      setDisabled(false)
     }
   }
 
@@ -95,10 +91,6 @@ export default function Home() {
         <h1 className={styles.loading}>Now Loading.....</h1>
       </div>
     )
-  }
-
-  const setDateString = (date: string) => {
-    return new Date(date).toLocaleDateString()
   }
 
   const fetchAllTask = async (email: string) => {
@@ -125,12 +117,10 @@ export default function Home() {
 
   useEffect(() => {
     // console.log('session', session)
-    alert(JSON.stringify(session))
-    if(!session) return
     const email = session?.user?.email ?? ''
     // const email = 'rude1979@gmail.com'
     fetchAllTask(email)
-  }, [])
+  }, [session?.user?.email, url])
 
   if (!session) {
     loadingNode()
@@ -191,7 +181,7 @@ export default function Home() {
                       />
                     </div>
                     <div>
-                      <button className={styles.submit_btn} type="submit" disabled={isDisabled}>追加</button>
+                      <button className={styles.submit_btn} type="submit">追加</button>
                     </div>
                   </div>
                   {errors.task?.type === 'required' && (
@@ -213,21 +203,18 @@ export default function Home() {
                   {
                     tasks.map((task: TaskProps, index: number) => {
                       return (
-                        <>
+                        <div className={styles.task} key={index}>
                           <div className={styles.task_title}>{task.title}</div>
-                          <div className={styles.task_under}>
-                            <div className={styles.task_created}>{setDateString(task.createdAt)}</div>
-                            <div className={styles.task_btn_area}>
-                              <button className={styles.task_done_btn}>完了</button>
-                              <button className={styles.task_delete_btn}>削除</button>
-                            </div>
+                          <div className={styles.task_created}>{task.createdAt}</div>
+                          <div className={styles.task_btn_area}>
+                            <button className={styles.task_done_btn}>完了</button>
+                            <button className={styles.task_delete_btn}>削除</button>
                           </div>
-                        </>
+                        </div>
                       )
                     })
                   }
                   </div>
-                  <hr className={styles.task_under_line} />
                 </>
                 :
                 <div className={styles.main}>
