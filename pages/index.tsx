@@ -125,6 +125,11 @@ export default function Home() {
   }
 
   const updateTask = async (id: number, done: boolean) => {
+    if (!user.id) {
+      alert('ユーザー情報が取得できませんでした。')
+      return
+    }
+    setDisabled(true)
     const params = {taskId : id, done : !done};
     const updateTaskUrl = `${url}/api/task`
     try {
