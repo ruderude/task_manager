@@ -69,6 +69,7 @@ export default function Home() {
         alert(JSON.stringify(res))
         clearForm()
       }
+      alert('タスクの追加に失敗しました。')
     } catch (error) {
       alert('タスクの追加に失敗しました。')
       console.error({ error })
