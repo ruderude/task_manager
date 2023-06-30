@@ -54,10 +54,16 @@ export default function Home() {
       return
     }
     const params = {userId : user.id, task : data.task};
-    const query = new URLSearchParams(params)
-    const postTaskUrl = `${url}/api/task/create?${query}`
+    const postTaskUrl = `${url}/api/task/create`
     try {
-      const res = await fetch(postTaskUrl)
+      const res = await fetch(postTaskUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params)
+      })
+
       if (res.ok) {
         alert('タスクを追加しました。')
         alert(JSON.stringify(res))
