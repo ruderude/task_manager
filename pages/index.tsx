@@ -125,7 +125,7 @@ export default function Home() {
 
   useEffect(() => {
     // console.log('session', session)
-    alert(JSON.stringify(session))
+    // alert(JSON.stringify(session))
     if(!session) return
     const email = session?.user?.email ?? ''
     // const email = 'rude1979@gmail.com'
