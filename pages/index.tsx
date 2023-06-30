@@ -35,8 +35,8 @@ const initialUser = {
 }
 
 export default function Home() {
-  const { data: session } = useSession({ required: true })
-  // const session = true
+  // const { data: session } = useSession({ required: true })
+  const session = true
   const [user, setUser] = useState<UserProps>(initialUser)
   const [tasks, setTasks] = useState<TaskProps[]>([])
   const [isDisabled, setDisabled] = useState<boolean>(false)
@@ -126,8 +126,8 @@ export default function Home() {
   useEffect(() => {
     // console.log('session', session)
     if(!session) return
-    const email = session?.user?.email ?? ''
-    // const email = 'rude1979@gmail.com'
+    // const email = session?.user?.email ?? ''
+    const email = 'rude1979@gmail.com'
     fetchAllTask(email)
   }, [])
 
