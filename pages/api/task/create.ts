@@ -32,7 +32,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     task: task,
   }
 
-  res.status(200).json(resData)
+  res.status(200).json(req.body)
 }
 
 export default handler
