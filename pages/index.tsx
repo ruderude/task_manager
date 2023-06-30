@@ -124,8 +124,8 @@ export default function Home() {
     }
   }
 
-  const updateTask = async (id: string, done: boolean) => {
-    const params = {id : id, done : !done};
+  const updateTask = async (id: number, done: boolean) => {
+    const params = {taskId : id, done : !done};
     const updateTaskUrl = `${url}/api/task`
     try {
       const res = await fetch(updateTaskUrl, {
