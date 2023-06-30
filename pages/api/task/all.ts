@@ -4,14 +4,14 @@ import { getServerSession } from 'next-auth/next'
 import { prisma } from '@/lib/prisma'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await getServerSession(req, res, authOptions);
+  // const session = await getServerSession(req, res, authOptions);
 
-  console.log(session);
+  // console.log(session);
 
-  if (!session) {
-    res.status(401).json({ message: 'You must be logged in.' });
-    return;
-  }
+  // if (!session) {
+  //   res.status(401).json({ message: 'You must be logged in.' });
+  //   return;
+  // }
 
   const { email } = req.query
   console.log('email', email)

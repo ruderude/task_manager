@@ -125,6 +125,11 @@
   margin-top: 6rem;
 }
 
+.tasks {
+  width: 350px;
+  margin: 0 auto;
+}
+
 .task_title {
   font-size: 20px;
   font-weight: bold;
@@ -135,6 +140,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.task_btn_area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
 }
 
 .task_done_btn {
