@@ -35,6 +35,14 @@ export default function Home() {
   const [user, setUser] = useState<UserProps>(initialUser)
   const [tasks, setTasks] = useState<TaskProps[]>([])
 
+  const loadingNode = () => {
+    return (
+      <div className={styles.main_loading}>
+        <h1 className={styles.loading}>Now Loading.....</h1>
+      </div>
+    )
+  }
+
   useEffect(() => {
     console.log('useEffect')
     // console.log('session', session)
@@ -67,9 +75,7 @@ export default function Home() {
   }, [session])
 
   if (!session) {
-    return (<div className={styles.main_loading}>
-      <h1 className={styles.loading}>Now Loading.....</h1>
-    </div>)
+    loadingNode()
   }
 
   return (
@@ -136,9 +142,7 @@ export default function Home() {
               }
             </>
             :
-            <div className={styles.main_loading}>
-              <h1 className={styles.loading}>Now Loading.....</h1>
-            </div>
+            loadingNode()
           }
         </div>
       </main>
