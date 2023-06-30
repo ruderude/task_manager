@@ -55,7 +55,7 @@ export default function Home() {
     }
     const params = {userId : user.id, task : data.task};
     const query = new URLSearchParams(params)
-    const postTaskUrl = url + `/api/task/create?${query}`
+    const postTaskUrl = `${url}/api/task/create?${query}`
     try {
       const res = await fetch(postTaskUrl)
       if (res.ok) {
@@ -85,12 +85,13 @@ export default function Home() {
 
   useEffect(() => {
     console.log('useEffect')
+    alert(url)
     // console.log('session', session)
     const email = session?.user?.email ?? ''
     // const email = 'rude1979@gmail.com'
     const params = {email : email};
     const query = new URLSearchParams(params)
-    const getAllUrl = url + `/api/task/all?${query}`
+    const getAllUrl = `${url}/api/task/all?${query}`
     
     const fetchAllTask = async () => {
       try {
