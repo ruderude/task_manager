@@ -1,29 +1,33 @@
 .main {
   text-align: center;
-  
+
   .profile_area {
 
     .image {
-      width: 200px;
-      height: 200px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       background-size: cover;
       background-position: center;
+      margin: 0 auto;
     }
 
     .name {
-      font-size: 30px;
+      font-size: 20px;
       font-weight: bold;
     }
 
     .btn_area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       .previous_btn {
         display: block;
         text-align: center;
         text-decoration: none;
         margin: auto;
-        padding: 1rem 4rem;
+        padding: 6px 12px;
         font-weight: bold;
         border-radius: 8px;
         background: #27acd9;
@@ -42,7 +46,7 @@
         text-align: center;
         text-decoration: none;
         margin: auto;
-        padding: 1rem 4rem;
+        padding: 6px 12px;
         font-weight: bold;
         border-radius: 8px;
         background: #7bd12b;

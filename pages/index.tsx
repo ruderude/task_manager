@@ -87,7 +87,7 @@ export default function Home() {
               <div className={styles.profile_area}>
                 {user.image &&
                   <div className={styles.image}>
-                    <Image src={user.image} alt="" width={96} height={96} />
+                    <Image src={user.image} alt="" width={120} height={120} />
                   </div>
                 }
                 <div className={styles.name}>
@@ -100,10 +100,13 @@ export default function Home() {
                   <button className={styles.logout_btn} onClick={() => signOut()}>ログアウト</button>
                 </div>
               </div>
+              <br />
               <hr />
+              <br />
+              <h2>現在のタスク一覧</h2>
+              <br />
               {tasks.length > 0 ?
                 <>
-                  <h2>現在のタスク一覧</h2>
                   <div className={styles.tasks}>
                   {
                     tasks.map((task: TaskProps, index: number) => {
