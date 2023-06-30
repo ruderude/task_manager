@@ -111,7 +111,7 @@ export default function Home() {
       }
     }
     fetchAllTask()
-  }, [session])
+  }, [session?.user?.email, url])
 
   if (!session) {
     loadingNode()
