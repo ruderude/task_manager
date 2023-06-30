@@ -137,7 +137,7 @@ export default function Home() {
       })
 
       if (res.ok) {
-        // alert('タスクを追加しました。')
+        // alert('タスクを更新しました。')
         // alert(JSON.stringify(res))
         clearForm()
         setTasks([])
@@ -145,9 +145,9 @@ export default function Home() {
         fetchAllTask(email)
         return
       }
-      alert('タスクの追加に失敗しました。')
+      alert('タスクの更新に失敗しました。')
     } catch (error) {
-      alert('タスクの追加に失敗しました。')
+      alert('タスクの更新に失敗しました。')
       console.error({ error })
     } finally {
       console.log('done')
