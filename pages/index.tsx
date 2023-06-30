@@ -39,6 +39,7 @@ export default function Home() {
   // const session = true
   const [user, setUser] = useState<UserProps>(initialUser)
   const [tasks, setTasks] = useState<TaskProps[]>([])
+  const [isDisabled, setDisabled] = useState<boolean>(false)
   const url = process.env.NEXT_PUBLIC_BASE_URL
   const {
     register,
@@ -52,6 +53,7 @@ export default function Home() {
       alert('ユーザー情報が取得できませんでした。')
       return
     }
+    setDisabled(true)
     const params = {userId : user.id, task : data.task};
     const postTaskUrl = `${url}/api/task/create`
     try {
@@ -78,6 +80,7 @@ export default function Home() {
       console.error({ error })
     } finally {
       console.log('done')
+      setDisabled(false)
     }
   }
 
@@ -182,7 +185,7 @@ export default function Home() {
                       />
                     </div>
                     <div>
-                      <button className={styles.submit_btn} type="submit">追加</button>
+                      <button className={styles.submit_btn} type="submit" disabled={isDisabled}>追加</button>
                     </div>
                   </div>
                   {errors.task?.type === 'required' && (
