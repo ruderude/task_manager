@@ -222,12 +222,12 @@ export default function Home() {
                               <button className={styles.task_delete_btn}>削除</button>
                             </div>
                           </div>
+                          <hr className={styles.task_under_line} />
                         </>
                       )
                     })
                   }
                   </div>
-                  <hr className={styles.task_under_line} />
                 </>
                 :
                 <div className={styles.main}>
