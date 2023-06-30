@@ -4,16 +4,20 @@ import { getServerSession } from 'next-auth/next'
 import { prisma } from '@/lib/prisma'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await getServerSession(req, res, authOptions);
+  // const session = await getServerSession(req, res, authOptions);
 
-  console.log(session);
+  // console.log(session);
 
-  if (!session) {
-    res.status(401).json({ message: 'You must be logged in.' });
-    return;
-  }
+  // if (!session) {
+  //   res.status(401).json({ message: 'You must be logged in.' });
+  //   return;
+  // }
+
+  console.log('req', req.body)
 
   const { userId, task } = req.body
+  console.log('userId', userId)
+  console.log('task', task)
 
   if (!userId || !task) {
     res.status(400).json({ message: 'Bad Request.' })
@@ -32,7 +36,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     task: task,
   }
 
-  res.status(200).json(req)
+  res.status(200).json(resData)
 }
 
 export default handler
