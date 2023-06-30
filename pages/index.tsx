@@ -19,6 +19,7 @@ interface UserProps {
 }
 
 interface TaskProps {
+  id: string
   title: string
   done: boolean
   userId: string
@@ -46,43 +47,6 @@ export default function Home() {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>()
-
-  const sendForm: SubmitHandler<Inputs> = async (data) => {
-    // alert(JSON.stringify(data))
-    if (!user.id) {
-      alert('ユーザー情報が取得できませんでした。')
-      return
-    }
-    setDisabled(true)
-    const params = {userId : user.id, task : data.task};
-    const postTaskUrl = `${url}/api/task/create`
-    try {
-      const res = await fetch(postTaskUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(params)
-      })
-
-      if (res.ok) {
-        // alert('タスクを追加しました。')
-        // alert(JSON.stringify(res))
-        clearForm()
-        setTasks([])
-        const email = user.email as string
-        fetchAllTask(email)
-        return
-      }
-      alert('タスクの追加に失敗しました。')
-    } catch (error) {
-      alert('タスクの追加に失敗しました。')
-      console.error({ error })
-    } finally {
-      console.log('done')
-      setDisabled(false)
-    }
-  }
 
   const clearForm = () => {
     const task = document.getElementById('task') as HTMLInputElement
@@ -120,6 +84,74 @@ export default function Home() {
       console.error({ error })
     } finally {
       console.log('done')
+    }
+  }
+
+  const createTask: SubmitHandler<Inputs> = async (data) => {
+    // alert(JSON.stringify(data))
+    if (!user.id) {
+      alert('ユーザー情報が取得できませんでした。')
+      return
+    }
+    setDisabled(true)
+    const params = {userId : user.id, task : data.task};
+    const postTaskUrl = `${url}/api/task`
+    try {
+      const res = await fetch(postTaskUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params)
+      })
+
+      if (res.ok) {
+        // alert('タスクを追加しました。')
+        // alert(JSON.stringify(res))
+        clearForm()
+        setTasks([])
+        const email = user.email as string
+        fetchAllTask(email)
+        return
+      }
+      alert('タスクの追加に失敗しました。')
+    } catch (error) {
+      alert('タスクの追加に失敗しました。')
+      console.error({ error })
+    } finally {
+      console.log('done')
+      setDisabled(false)
+    }
+  }
+
+  const updateTask = async (id: string, done: boolean) => {
+    const params = {id : id, done : !done};
+    const updateTaskUrl = `${url}/api/task`
+    try {
+      const res = await fetch(updateTaskUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params)
+      })
+
+      if (res.ok) {
+        // alert('タスクを追加しました。')
+        // alert(JSON.stringify(res))
+        clearForm()
+        setTasks([])
+        const email = user.email as string
+        fetchAllTask(email)
+        return
+      }
+      alert('タスクの追加に失敗しました。')
+    } catch (error) {
+      alert('タスクの追加に失敗しました。')
+      console.error({ error })
+    } finally {
+      console.log('done')
+      setDisabled(false)
     }
   }
 
@@ -168,7 +200,7 @@ export default function Home() {
               </div>
               <br />
               <div>
-                <form onSubmit={handleSubmit(sendForm)}>
+                <form onSubmit={handleSubmit(createTask)}>
                   <div>
                     <label htmlFor="task">新規タスク追加</label>
                   </div>
@@ -211,19 +243,19 @@ export default function Home() {
                 <>
                   <div className={styles.tasks}>
                   {
-                    tasks.map((task: TaskProps, index: number) => {
+                    tasks.map((task: TaskProps) => {
                       return (
-                        <>
+                        <div key={task.id}>
                           <div className={styles.task_title}>{task.title}</div>
                           <div className={styles.task_under}>
                             <div className={styles.task_created}>{setDateString(task.createdAt)}</div>
                             <div className={styles.task_btn_area}>
-                              <button className={styles.task_done_btn}>完了</button>
+                              <button className={styles.task_done_btn} onClick={() => updateTask(task.id, task.done)}>完了</button>
                               <button className={styles.task_delete_btn}>削除</button>
                             </div>
                           </div>
                           <hr className={styles.task_under_line} />
-                        </>
+                        </div>
                       )
                     })
                   }
