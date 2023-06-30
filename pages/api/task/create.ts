@@ -24,19 +24,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return
   }
 
-  // const resTask = await prisma.task.create({
-  //   data: {
-  //     title: task,
-  //     done: false,
-  //   },
-  // })
+  const resTask = await prisma.task.create({
+    data: {
+      title: task,
+      done: false,
+      userId: userId,
+    },
+  })
 
-  const resData = {
-    userId: userId,
-    task: task,
-  }
-
-  res.status(200).json(resData)
+  res.status(200).json({ message: 'OK' })
 }
 
 export default handler
