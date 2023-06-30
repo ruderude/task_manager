@@ -131,9 +131,11 @@ export default function Home() {
               <br />
               <div>
                 <form onSubmit={handleSubmit(sendForm)}>
+                  <div>
+                    <label htmlFor="task">タスク</label>
+                  </div>
                   <div className={styles.new_task}>
                     <div>
-                      <label htmlFor="task">Email</label>
                       <input
                         id="task"
                         type="text"
