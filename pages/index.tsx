@@ -54,7 +54,7 @@ export default function Home() {
           const fetchData = await res.json()
           console.log('fetchData', fetchData)
           setUser(fetchData.user)
-          alert(JSON.stringify(fetchData))
+          // alert(JSON.stringify(fetchData))
         }
       } catch (error) {
         console.error({ error })
@@ -80,14 +80,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        <br />
         <div className={styles.main}>
           <h1>タスク管理アプリ</h1>
           {user.id ?
             <>
               <div className={styles.profile_area}>
                 {user.image &&
-                  <div className={styles.image}>
-                    <Image src={user.image} alt="" width={120} height={120} />
+                  <div>
+                    <Image className={styles.image} src={user.image} alt="" width={120} height={120} />
                   </div>
                 }
                 <div className={styles.name}>
