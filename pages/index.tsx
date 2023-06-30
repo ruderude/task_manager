@@ -251,13 +251,13 @@ export default function Home() {
                     tasks.map((task: TaskProps) => {
                       return (
                         <div key={task.id}>
-                          <div className={styles.task_title}>{task.title}</div>
+                          <div className={`${task.done ? "done" : ""} ${styles.task_title}`}>{task.title}</div>
                           <div className={styles.task_under}>
                             <div className={styles.task_created}>{setDateString(task.createdAt)}</div>
                             <div className={styles.task_btn_area}>
                               {
                                 task.done ?
-                                  <button className={`${task.done ? "done" : ""} ${styles.task_undone_btn}`} onClick={() => updateTask(Number(task.id), task.done)} disabled={isDisabled}>未完了</button>
+                                  <button className={styles.task_undone_btn} onClick={() => updateTask(Number(task.id), task.done)} disabled={isDisabled}>未完了</button>
                                   :
                                   <button className={styles.task_done_btn} onClick={() => updateTask(Number(task.id), task.done)} disabled={isDisabled}>完了</button>
                               }
