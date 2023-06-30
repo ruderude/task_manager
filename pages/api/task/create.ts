@@ -13,7 +13,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  const { userId, task } = req.query
+  const { userId, task } = req.body
 
   if (!userId || !task) {
     res.status(400).json({ message: 'Bad Request.' })
@@ -25,20 +25,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   //     title: task,
   //     done: false,
   //   },
-  // })
-
-  // const user = await prisma.user.findFirst({
-  //   where: { email: String(email) },
-  // })
-
-  // if (!user) {
-  //   res.status(404).json({ message: 'User not found.' })
-  //   return
-  // }
-
-  // const tasks = await prisma.task.findMany({
-  //   where: { userId: user.id },
-  //   orderBy: { createdAt: 'desc' },
   // })
 
   const resData = {
