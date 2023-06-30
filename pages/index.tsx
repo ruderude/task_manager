@@ -120,7 +120,7 @@ export default function Home() {
     const email = session?.user?.email ?? ''
     // const email = 'rude1979@gmail.com'
     fetchAllTask(email)
-  }, [])
+  }, [session?.user?.email, url])
 
   if (!session) {
     loadingNode()
