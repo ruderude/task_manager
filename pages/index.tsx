@@ -43,16 +43,16 @@ export default function Home() {
     const url = protocol + "//" + host
     const params = {email : email};
     const query = new URLSearchParams(params)
-    const getUser = url + `/api/user?${query}`
-    // const getAllUrl = url + `/api/task/all?${query}`
+    const getAllUrl = url + `/api/task/all?${query}`
     
     const fetchAllTask = async () => {
       try {
-        const res = await fetch(getUser)
+        const res = await fetch(getAllUrl)
         if (res.ok) {
           const fetchData = await res.json()
           console.log('fetchData', fetchData)
-          setUser(fetchData)
+          setUser(fetchData.user)
+          alert(JSON.stringify(fetchData))
         }
       } catch (error) {
         console.error({ error })

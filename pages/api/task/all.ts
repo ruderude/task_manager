@@ -4,14 +4,14 @@ import { getServerSession } from 'next-auth/next'
 import { prisma } from '@/lib/prisma'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  // const session = await getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions);
 
-  // console.log(session);
+  console.log(session);
 
-  // if (!session) {
-  //   res.status(401).json({ message: 'You must be logged in.' });
-  //   return;
-  // }
+  if (!session) {
+    res.status(401).json({ message: 'You must be logged in.' });
+    return;
+  }
 
   const { email } = req.query
   console.log('email', email)
@@ -20,14 +20,22 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     where: { email: String(email) },
   })
 
-  console.log('user', user)
-
   if (!user) {
     res.status(404).json({ message: 'User not found.' })
     return
   }
 
-  res.status(200).json(user)
+  const tasks = await prisma.task.findMany({
+    where: { userId: user.id },
+    orderBy: { createdAt: 'desc' },
+  })
+
+  const resData = {
+    user: user,
+    tasks: tasks,
+  }
+
+  res.status(200).json(resData)
 }
 
 export default handler
