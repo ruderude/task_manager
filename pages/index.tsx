@@ -125,6 +125,7 @@ export default function Home() {
 
   useEffect(() => {
     // console.log('session', session)
+    if(!session) return
     const email = session?.user?.email ?? ''
     fetchAllTask(email)
   }, [])
