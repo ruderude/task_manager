@@ -63,6 +63,7 @@ export default function Home() {
         clearForm()
       }
     } catch (error) {
+      alert('タスクの追加に失敗しました。')
       console.error({ error })
     } finally {
       console.log('done')
@@ -102,6 +103,8 @@ export default function Home() {
           // alert(JSON.stringify(fetchData))
         }
       } catch (error) {
+        alert('エラーです。')
+        alert(JSON.stringify(error))
         console.error({ error })
       } finally {
         console.log('done')
