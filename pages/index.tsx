@@ -47,6 +47,7 @@ export default function Home() {
   } = useForm<Inputs>()
 
   const sendForm: SubmitHandler<Inputs> = (data) => {
+    alert(JSON.stringify(data))
     console.log(data)
   }
 
@@ -137,6 +138,7 @@ export default function Home() {
                   <div className={styles.new_task}>
                     <div>
                       <input
+                        className={styles.task_input}
                         id="task"
                         type="text"
                         {...register('task', {
@@ -152,7 +154,7 @@ export default function Home() {
                       />
                     </div>
                     <div>
-                      <button type="submit">追加</button>
+                      <button className={styles.submit_btn} type="submit">追加</button>
                     </div>
                   </div>
                   {errors.task?.type === 'required' && (
