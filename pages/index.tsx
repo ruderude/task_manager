@@ -39,9 +39,7 @@ export default function Home() {
   // const session = true
   const [user, setUser] = useState<UserProps>(initialUser)
   const [tasks, setTasks] = useState<TaskProps[]>([])
-  const protocol = window.location.protocol
-  const host = window.location.host
-  const url = protocol + "//" + host
+  const url = process.env.NEXTAUTH_URL
   const {
     register,
     handleSubmit,
