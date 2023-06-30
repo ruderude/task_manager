@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useSession, signIn, signOut } from 'next-auth/react'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import styles from '@/styles/Home.module.scss'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
+
+interface Inputs {
+  task: string
+}
 
 interface UserProps {
   id: string | null
@@ -34,6 +39,21 @@ export default function Home() {
   // const session = true
   const [user, setUser] = useState<UserProps>(initialUser)
   const [tasks, setTasks] = useState<TaskProps[]>([])
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>()
+
+  const sendForm: SubmitHandler<Inputs> = (data) => {
+    console.log(data)
+  }
+
+  const clearForm = () => {
+    const task = document.getElementById('task') as HTMLInputElement
+    task.value = ''
+  }
 
   const loadingNode = () => {
     return (
@@ -109,7 +129,37 @@ export default function Home() {
                 </div>
               </div>
               <br />
-              <div className={styles.new_task}>
+              <div>
+                <form onSubmit={handleSubmit(sendForm)}>
+                  <div className={styles.new_task}>
+                    <div>
+                      <label htmlFor="task">Email</label>
+                      <input
+                        id="task"
+                        type="text"
+                        {...register('task', {
+                          required: {
+                            value: true,
+                            message: 'タスクの入力は必須です。',
+                          },
+                          maxLength: {
+                            value: 8,
+                            message: '8文字以下で入力してください。',
+                          },
+                        })}
+                      />
+                    </div>
+                    <div>
+                      <button type="submit">追加</button>
+                    </div>
+                  </div>
+                  {errors.task?.type === 'required' && (
+                    <div className={styles.error}>{ errors.task?.message }</div>
+                  )}
+                  {errors.task?.type === 'maxLength' && (
+                    <div className={styles.error}>{ errors.task?.message }</div>
+                  )}
+                </form>
               </div>
               <br />
               <hr />

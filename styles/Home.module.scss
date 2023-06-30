@@ -75,6 +75,18 @@
 
     }
   }
+
+  .new_task {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  .error {
+    font-size: small;
+    color: red;
+  }
 }
 
 .main_loading {
