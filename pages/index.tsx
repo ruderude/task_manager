@@ -39,7 +39,7 @@ export default function Home() {
   // const session = true
   const [user, setUser] = useState<UserProps>(initialUser)
   const [tasks, setTasks] = useState<TaskProps[]>([])
-  const url = process.env.NEXTAUTH_URL
+  const url = process.env.NEXT_PUBLIC_BASE_URL
   const {
     register,
     handleSubmit,
