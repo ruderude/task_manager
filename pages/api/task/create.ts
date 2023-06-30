@@ -15,6 +15,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const { userId, task } = req.query
 
+  if (!userId || !task) {
+    res.status(400).json({ message: 'Bad Request.' })
+    return
+  }
+
+  // const resTask = await prisma.task.create({
+  //   data: {
+  //     title: task,
+  //     done: false,
+  //   },
+  // })
+
   // const user = await prisma.user.findFirst({
   //   where: { email: String(email) },
   // })
@@ -29,12 +41,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   //   orderBy: { createdAt: 'desc' },
   // })
 
-  // const resData = {
-  //   user: user,
-  //   tasks: tasks,
-  // }
+  const resData = {
+    userId: userId,
+    task: task,
+  }
 
-  res.status(200).json({ message: 'ok'})
+  res.status(200).json(resData)
 }
 
 export default handler

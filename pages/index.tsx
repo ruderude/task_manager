@@ -60,6 +60,7 @@ export default function Home() {
       const res = await fetch(postTaskUrl)
       if (res.ok) {
         alert('タスクを追加しました。')
+        alert(JSON.stringify(res))
         clearForm()
       }
     } catch (error) {
@@ -84,8 +85,6 @@ export default function Home() {
   }
 
   useEffect(() => {
-    console.log('useEffect')
-    alert(url)
     // console.log('session', session)
     const email = session?.user?.email ?? ''
     // const email = 'rude1979@gmail.com'
