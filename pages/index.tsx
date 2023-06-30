@@ -129,7 +129,7 @@ export default function Home() {
     const updateTaskUrl = `${url}/api/task`
     try {
       const res = await fetch(updateTaskUrl, {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
