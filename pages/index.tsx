@@ -16,7 +16,9 @@ interface UserProps {
 interface TaskProps {
   title: string
   done: boolean
+  userId: string
   createdAt: string
+  updatedAt: string
 }
 
 const initialUser = {
@@ -64,7 +66,7 @@ export default function Home() {
   }, [session])
 
   if (!session) {
-    return (<div className={styles.main}>
+    return (<div className={styles.main_loading}>
       <h1 className={styles.loading}>Now Loading.....</h1>
     </div>)
   }
@@ -81,51 +83,53 @@ export default function Home() {
         <div className={styles.main}>
           <h1>タスク管理アプリ</h1>
           {user.id ?
-            <div className={styles.profile_area}>
-              {user.image &&
-                <div className={styles.image}>
-                  <Image src={user.image} alt="" width={96} height={96} />
+            <>
+              <div className={styles.profile_area}>
+                {user.image &&
+                  <div className={styles.image}>
+                    <Image src={user.image} alt="" width={96} height={96} />
+                  </div>
+                }
+                <div className={styles.name}>
+                  {user.name && <p>名前：{user.name}</p>}
+                </div>
+                <div className={styles.btn_area}>
+                  <button className={styles.previous_btn}>
+                    <Link href={`/previous`}>過去のタスク</Link>
+                  </button>
+                  <button className={styles.logout_btn} onClick={() => signOut()}>ログアウト</button>
+                </div>
+              </div>
+              <hr />
+              {tasks.length > 0 ?
+                <>
+                  <h2>現在のタスク一覧</h2>
+                  <div className={styles.tasks}>
+                  {
+                    tasks.map((task: TaskProps, index: number) => {
+                      return (
+                        <div className={styles.task} key={index}>
+                          <div className={styles.task_title}>{task.title}</div>
+                          <div className={styles.task_created}>{task.createdAt}</div>
+                          <div className={styles.task_btn_area}>
+                            <button className={styles.task_done_btn}>完了</button>
+                            <button className={styles.task_delete_btn}>削除</button>
+                          </div>
+                        </div>
+                      )
+                    })
+                  }
+                  </div>
+                </>
+                :
+                <div className={styles.main}>
+                  <h1 className={styles.loading}>タスクはありません</h1>
                 </div>
               }
-              <div className={styles.name}>
-                {user.name && <p>名前：{user.name}</p>}
-              </div>
-              <div className={styles.btn_area}>
-                <button className={styles.previous_btn}>
-                  <Link href={`/previous`}>過去のタスク</Link>
-                </button>
-                <button className={styles.logout_btn} onClick={() => signOut()}>ログアウト</button>
-              </div>
-            </div>
+            </>
             :
             <div className={styles.main_loading}>
               <h1 className={styles.loading}>Now Loading.....</h1>
-            </div>
-          }
-          <hr />
-          {tasks.length > 0 ?
-            <>
-              <h2>現在のタスク一覧</h2>
-              <div className={styles.tasks}>
-              {
-                tasks.map((task: TaskProps, index: number) => {
-                  return (
-                    <div className={styles.task} key={index}>
-                      <div className={styles.task_title}>{task.title}</div>
-                      <div className={styles.task_created}>{task.createdAt}</div>
-                      <div className={styles.task_btn_area}>
-                        <button className={styles.task_done_btn}>完了</button>
-                        <button className={styles.task_delete_btn}>削除</button>
-                      </div>
-                    </div>
-                  )
-                })
-              }
-              </div>
-            </>
-            :
-            <div className={styles.main}>
-              <h1 className={styles.loading}>タスクはありません</h1>
             </div>
           }
         </div>
