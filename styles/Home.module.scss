@@ -124,3 +124,45 @@
   text-align: center;
   margin-top: 6rem;
 }
+
+.task_title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 2px auto;
+}
+
+.task_under {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task_done_btn {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  padding: 6px 12px;
+  margin: 0 4px;
+  font-weight: bold;
+  border-radius: 8px;
+  background: #27acd9;
+  color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+  transition: 0.5s;
+}
+
+.task_delete_btn {
+  display: block;
+    text-align: center;
+    text-decoration: none;
+    padding: 6px 12px;
+    margin: 0 4px;
+    font-weight: bold;
+    border-radius: 8px;
+    background: #e13232;
+    color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+    -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+    transition: 0.5s;
+}

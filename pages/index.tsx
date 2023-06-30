@@ -97,6 +97,10 @@ export default function Home() {
     )
   }
 
+  const setDateString = (date: string) => {
+    return new Date(date).toLocaleDateString()
+  }
+
   const fetchAllTask = async (email: string) => {
     const params = {email : email};
     const query = new URLSearchParams(params)
@@ -122,7 +126,6 @@ export default function Home() {
   useEffect(() => {
     // console.log('session', session)
     const email = session?.user?.email ?? ''
-    // const email = 'rude1979@gmail.com'
     fetchAllTask(email)
   }, [])
 
@@ -207,14 +210,16 @@ export default function Home() {
                   {
                     tasks.map((task: TaskProps, index: number) => {
                       return (
-                        <div className={styles.task} key={index}>
+                        <>
                           <div className={styles.task_title}>{task.title}</div>
-                          <div className={styles.task_created}>{task.createdAt}</div>
-                          <div className={styles.task_btn_area}>
-                            <button className={styles.task_done_btn}>完了</button>
-                            <button className={styles.task_delete_btn}>削除</button>
+                          <div className={styles.task_under}>
+                            <div className={styles.task_created}>{setDateString(task.createdAt)}</div>
+                            <div className={styles.task_btn_area}>
+                              <button className={styles.task_done_btn}>完了</button>
+                              <button className={styles.task_delete_btn}>削除</button>
+                            </div>
                           </div>
-                        </div>
+                        </>
                       )
                     })
                   }
