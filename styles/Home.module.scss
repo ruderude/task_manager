@@ -164,6 +164,21 @@
   transition: 0.5s;
 }
 
+.task_undone_btn {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  padding: 6px 12px;
+  margin: 0 4px;
+  font-weight: bold;
+  border-radius: 8px;
+  background: #e6f024;
+  color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+  transition: 0.5s;
+}
+
 .task_delete_btn {
   display: block;
     text-align: center;
@@ -183,4 +198,9 @@
   width: 90%;
   color: #ccc;
   margin: 8px auto;
+}
+
+.done {
+  text-decoration: line-through;
+  color: #999999;
 }

@@ -250,7 +250,13 @@ export default function Home() {
                           <div className={styles.task_under}>
                             <div className={styles.task_created}>{setDateString(task.createdAt)}</div>
                             <div className={styles.task_btn_area}>
-                              <button className={styles.task_done_btn} onClick={() => updateTask(Number(task.id), task.done)} disabled={isDisabled}>完了</button>
+                              {
+                                task.done ?
+                                  <button className={`${task.done ? "done" : ""} ${styles.task_undone_btn}`} onClick={() => updateTask(Number(task.id), task.done)} disabled={isDisabled}>未完了</button>
+                                  :
+                                  <button className={styles.task_done_btn} onClick={() => updateTask(Number(task.id), task.done)} disabled={isDisabled}>完了</button>
+                              }
+                              
                               <button className={styles.task_delete_btn}>削除</button>
                             </div>
                           </div>
