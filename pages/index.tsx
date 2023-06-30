@@ -65,7 +65,7 @@ export default function Home() {
 
       if (res.ok) {
         alert('タスクを追加しました。')
-        alert(JSON.stringify(res))
+        // alert(JSON.stringify(res))
         clearForm()
         return
       }

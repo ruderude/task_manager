@@ -28,7 +28,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     },
   })
 
-  res.status(200).json(resTask)
+  res.status(200).json({ message: 'OK' })
 }
 
 export default handler
