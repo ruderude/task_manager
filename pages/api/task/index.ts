@@ -40,7 +40,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     case 'PUT':
       const { taskId, done } = req.body
 
-      if (!taskId || !done) {
+      if (!taskId || done === undefined) {
         res.status(400).json({ message: 'Bad Request.' })
         return
       }
