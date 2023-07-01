@@ -229,9 +229,9 @@ export default function Home() {
                   {user.name && <p>名前：{user.name}</p>}
                 </div>
                 <div className={styles.btn_area}>
-                  <button className={styles.previous_btn}>
+                  {/* <button className={styles.previous_btn}>
                     <Link href={`/previous`}>過去のタスク</Link>
-                  </button>
+                  </button> */}
                   <button className={styles.logout_btn} onClick={() => signOut()}>ログアウト</button>
                 </div>
               </div>
