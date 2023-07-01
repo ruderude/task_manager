@@ -24,10 +24,9 @@ const authOptions: NextAuthOptions = {
     } as ClientType),
   ],
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      console.log('サインイン')
-      return true
-    },
+    async redirect({ url, baseUrl }) {
+      return baseUrl
+    }
   },
   secret: process.env.NEXTAUTH_SECRET,
 }
