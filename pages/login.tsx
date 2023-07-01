@@ -9,9 +9,11 @@ const Login: NextPage = () => {
 
   // sessionがあれば「/」にリダイレクト
   const router = useRouter()
-  if (session) {
-    router.push('/')
-  }
+  useEffect(() => {
+    if (session) {
+      router.push('/')
+    }
+  }, [session])
 
   return (
     <div className={styles.main}>

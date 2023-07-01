@@ -40,9 +40,6 @@ export default function Home() {
   const { data: session } = useSession({ required: true })
   // const session = true
   const router = useRouter()
-  if (!session) {
-    router.push('/login')
-  }
   const [user, setUser] = useState<UserProps>(initialUser)
   const [tasks, setTasks] = useState<TaskProps[]>([])
   const [isDisabled, setDisabled] = useState<boolean>(false)
@@ -198,6 +195,9 @@ export default function Home() {
   }
 
   useEffect(() => {
+    if (!session) {
+      router.push('/login')
+    }
     // console.log('session', session)
     // alert(JSON.stringify(session))
     if(!session) return
