@@ -5,7 +5,7 @@ import { NextPage } from 'next'
 import styles from '@/styles/Login.module.scss'
 
 const Login: NextPage = () => {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
 
   // sessionがあれば「/」にリダイレクト
   const router = useRouter()
@@ -15,6 +15,10 @@ const Login: NextPage = () => {
       return
     }
   }, [session])
+
+  if (status === "loading") {
+    return <div></div>
+  }
 
   return (
     <>
