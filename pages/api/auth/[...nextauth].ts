@@ -26,7 +26,7 @@ const authOptions: NextAuthOptions = {
   
   callbacks: {
     async redirect({ url, baseUrl }) {
-      return baseUrl
+      return "/"
     }
   },
   secret: process.env.NEXTAUTH_SECRET,
