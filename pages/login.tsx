@@ -17,13 +17,20 @@ const Login: NextPage = () => {
   }, [session])
 
   return (
-    <div className={styles.main}>
-      <div className={styles.login_area}>
-        <h1 className={styles.login_title}>タスク管理アプリ</h1>
-        <br />
-        <button onClick={() => signIn("google")} className={styles.login_btn}>Googleログイン</button>
-      </div>
-    </div>
+    <>
+      {
+        session ? 
+          <div></div>
+        :
+        <div className={styles.main}>
+          <div className={styles.login_area}>
+            <h1 className={styles.login_title}>タスク管理アプリ</h1>
+            <br />
+            <button onClick={() => signIn("google")} className={styles.login_btn}>Googleログイン</button>
+          </div>
+        </div>
+      }
+    </>
   )
 }
 
