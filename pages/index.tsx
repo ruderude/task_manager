@@ -308,7 +308,7 @@ export default function Home() {
               </>
               :
               <div className={styles.main}>
-                <h1 className={styles.loading}>-----</h1>
+                <h1 className={styles.none_area}>-----</h1>
               </div>
             }
           </>
