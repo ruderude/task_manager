@@ -23,10 +23,10 @@ const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     } as ClientType),
   ],
-  
   callbacks: {
     async redirect({ url, baseUrl }) {
-      return "/"
+      const redirectUrl = process.env.NEXT_PUBLIC_BASE_URL as string
+      return redirectUrl
     }
   },
   secret: process.env.NEXTAUTH_SECRET,
