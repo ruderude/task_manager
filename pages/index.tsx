@@ -58,7 +58,8 @@ export default function Home() {
   const loadingNode = () => {
     return (
       <div className={styles.main_loading}>
-        <h1 className={styles.loading}>Now Loading.....</h1>
+        <div className={styles.loading}></div>
+        <p>Now loading...</p>
       </div>
     )
   }
@@ -204,7 +205,7 @@ export default function Home() {
   }, [session])
 
   if (status === "loading") {
-    return <div></div>
+    return loadingNode()
   }
 
   return (

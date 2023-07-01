@@ -9,6 +9,16 @@ const Login: NextPage = () => {
 
   // sessionがあれば「/」にリダイレクト
   const router = useRouter()
+
+  const loadingNode = () => {
+    return (
+      <div className={styles.main_loading}>
+        <div className={styles.loading}></div>
+        <p>Now loading...</p>
+      </div>
+    )
+  }
+
   useEffect(() => {
     if (session) {
       router.push('/')
@@ -17,14 +27,14 @@ const Login: NextPage = () => {
   }, [session])
 
   if (status === "loading") {
-    return <div></div>
+    return loadingNode()
   }
 
   return (
     <>
       {
         session ? 
-          <div></div>
+          loadingNode()
         :
         <div className={styles.main}>
           <div className={styles.login_area}>
