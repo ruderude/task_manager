@@ -37,7 +37,7 @@ const initialUser = {
 }
 
 export default function Home() {
-  const { data: session } = useSession({ required: true })
+  const { data: session, status } = useSession({ required: true })
   // const session = true
   const router = useRouter()
   const [user, setUser] = useState<UserProps>(initialUser)
@@ -202,6 +202,10 @@ export default function Home() {
     const email = session?.user?.email ?? ''
     fetchAllTask(email)
   }, [session])
+
+  if (status === "loading") {
+    return <div></div>
+  }
 
   return (
     <>
