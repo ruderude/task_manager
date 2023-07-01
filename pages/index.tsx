@@ -197,12 +197,9 @@ export default function Home() {
   useEffect(() => {
     if (!session) {
       router.push('/login')
+      return
     }
-    // console.log('session', session)
-    // alert(JSON.stringify(session))
-    if(!session) return
     const email = session?.user?.email ?? ''
-    // const email = 'rude1979@gmail.com'
     fetchAllTask(email)
   }, [session])
 
