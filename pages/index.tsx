@@ -143,8 +143,6 @@ export default function Home() {
 
       if (res.ok) {
         // alert('タスクを更新しました。')
-        // alert(JSON.stringify(res))
-        clearForm()
         setTasks([])
         const email = user.email as string
         fetchAllTask(email)
@@ -153,6 +151,40 @@ export default function Home() {
       alert('タスクの更新に失敗しました。')
     } catch (error) {
       alert('タスクの更新に失敗しました。')
+      console.error({ error })
+    } finally {
+      console.log('done')
+      setDisabled(false)
+    }
+  }
+
+  const deleteTask = async (id: number) => {
+    if (!user.id) {
+      alert('ユーザー情報が取得できませんでした。')
+      return
+    }
+    setDisabled(true)
+    const params = {taskId : id};
+    const deleteTaskUrl = `${url}/api/task`
+    try {
+      const res = await fetch(deleteTaskUrl, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params)
+      })
+
+      if (res.ok) {
+        // alert('タスクを削除しました。')
+        setTasks([])
+        const email = user.email as string
+        fetchAllTask(email)
+        return
+      }
+      alert('タスクの削除に失敗しました。')
+    } catch (error) {
+      alert('タスクの削除に失敗しました。')
       console.error({ error })
     } finally {
       console.log('done')
@@ -262,7 +294,7 @@ export default function Home() {
                                   <button className={styles.task_done_btn} onClick={() => updateTask(Number(task.id), task.done)} disabled={isDisabled}>完了</button>
                               }
                               
-                              <button className={styles.task_delete_btn}>削除</button>
+                              <button className={styles.task_delete_btn} onClick={() => deleteTask(Number(task.id))} disabled={isDisabled}>削除</button>
                             </div>
                           </div>
                           <hr className={styles.task_under_line} />
