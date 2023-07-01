@@ -34,7 +34,7 @@ const Login: NextPage = () => {
     <>
       {
         session ? 
-          loadingNode()
+          <div></div>
         :
         <div className={styles.main}>
           <div className={styles.login_area}>
