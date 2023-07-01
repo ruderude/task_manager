@@ -285,7 +285,7 @@ export default function Home() {
                     tasks.map((task: TaskProps) => {
                       return (
                         <div key={task.id}>
-                          <div className={`${task.done ? styles.done : ""} ${styles.task_title}`}>{task.title}</div>
+                          <div className={`${task.done ? styles.done : ""} ${styles.task_title} ${styles.word_turn}`}>{task.title}</div>
                           <div className={styles.task_under}>
                             <div className={styles.task_created}>{setDateString(task.createdAt)}</div>
                             <div className={styles.task_btn_area}>
