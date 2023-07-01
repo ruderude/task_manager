@@ -59,14 +59,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     default:
       const { deleteTaskId } = req.body
 
-      if (!taskId) {
+      if (!deleteTaskId) {
         res.status(400).json({ message: 'Bad Request.' })
         return
       }
 
       const resDelete = await prisma.task.delete({
         where: {
-          id: taskId,
+          id: deleteTaskId,
         }
       })
 
