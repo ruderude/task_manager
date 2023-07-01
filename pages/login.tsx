@@ -1,23 +1,26 @@
-import React, { useEffect } from 'react';
-import { useSession, signIn, signOut } from 'next-auth/react';
-import { NextPage } from 'next';
+import React, { useEffect } from 'react'
+import { useSession, signIn, signOut } from 'next-auth/react'
+import { useRouter } from 'next/router'
+import { NextPage } from 'next'
+import styles from '@/styles/Login.module.scss'
 
 const Login: NextPage = () => {
-  const { data: session } = useSession({ required: true })
+  const { data: session } = useSession()
 
   // sessionがあれば「/」にリダイレクト
-  useEffect(() => {
-    if (session) {
-      window.location.href = '/';
-    }
+  const router = useRouter()
+  if (session) {
+    router.push('/')
   }
-  , [session])
 
   return (
-    <>
-      <h1>Now Loading.....</h1>
-    </>
-  );
-};
+    <div className={styles.main}>
+      <div className={styles.login_area}>
+        <h1 className={styles.login_title}>タスク管理アプリ</h1>
+        <button onClick={() => signIn("google")} className={styles.login_btn}>ログイン</button>
+      </div>
+    </div>
+  )
+}
 
-export default Login;
+export default Login

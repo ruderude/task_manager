@@ -4,21 +4,21 @@ import { getServerSession } from 'next-auth/next'
 import { prisma } from '@/lib/prisma'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions)
 
-  console.log(session);
+  // console.log(session)
 
   if (!session) {
-    res.status(401).json({ message: 'You must be logged in.' });
-    return;
+    res.status(401).json({ message: 'You must be logged in.' })
+    return
   }
 
-  const { method } = req;
+  const { method } = req
 
   switch (method) {
     case 'GET':
-      res.json({ message: 'GETリクエスト' });
-      break;
+      res.json({ message: 'GETリクエスト' })
+      break
     case 'POST':
       const { userId, task } = req.body
 
@@ -36,7 +36,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       })
 
       res.status(200).json({ message: 'OK' })
-      break;
+      break
     case 'PUT':
       const { taskId, done } = req.body
 
@@ -55,7 +55,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       })
 
       res.status(200).json({ message: 'OK' })
-      break;
+      break
     default:
       const { deleteTaskId } = req.body
 
@@ -71,7 +71,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       })
 
       res.status(200).json({ message: 'OK' })
-      break;
+      break
   }
 
 }

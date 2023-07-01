@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSession, signIn, signOut } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import styles from '@/styles/Home.module.scss'
 import Head from 'next/head'
@@ -38,6 +39,10 @@ const initialUser = {
 export default function Home() {
   const { data: session } = useSession({ required: true })
   // const session = true
+  const router = useRouter()
+  if (!session) {
+    router.push('/login')
+  }
   const [user, setUser] = useState<UserProps>(initialUser)
   const [tasks, setTasks] = useState<TaskProps[]>([])
   const [isDisabled, setDisabled] = useState<boolean>(false)
@@ -200,10 +205,6 @@ export default function Home() {
     // const email = 'rude1979@gmail.com'
     fetchAllTask(email)
   }, [session])
-
-  if (!session) {
-    loadingNode()
-  }
 
   return (
     <>
