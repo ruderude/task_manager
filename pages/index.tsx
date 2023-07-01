@@ -196,13 +196,13 @@ export default function Home() {
   }
 
   useEffect(() => {
-    if (!session || !user.id) {
+    if (!session) {
       router.push('/login')
       return
     }
     const email = session?.user?.email ?? ''
     fetchAllTask(email)
-  }, [session, user.id])
+  }, [session])
 
   if (status === "loading") {
     return loadingNode()
