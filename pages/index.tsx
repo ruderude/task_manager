@@ -164,7 +164,7 @@ export default function Home() {
       return
     }
     setDisabled(true)
-    const params = {taskId : id};
+    const params = {deleteTaskId : id};
     const deleteTaskUrl = `${url}/api/task`
     try {
       const res = await fetch(deleteTaskUrl, {
@@ -306,7 +306,7 @@ export default function Home() {
                 </>
                 :
                 <div className={styles.main}>
-                  <h1 className={styles.loading}>タスクはありません</h1>
+                  <h1 className={styles.loading}>-----</h1>
                 </div>
               }
             </>

@@ -57,7 +57,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(200).json({ message: 'OK' })
       break;
     default:
-      res.json({ message: 'GET/POST/PATCHでもないリクエストです。' });
+      const { deleteTaskId } = req.body
+
+      if (!taskId) {
+        res.status(400).json({ message: 'Bad Request.' })
+        return
+      }
+
+      const resDelete = await prisma.task.delete({
+        where: {
+          id: taskId,
+        }
+      })
+
+      res.status(200).json({ message: 'OK' })
       break;
   }
 
