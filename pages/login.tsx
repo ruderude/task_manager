@@ -12,6 +12,7 @@ const Login: NextPage = () => {
   useEffect(() => {
     if (session) {
       router.push('/')
+      return
     }
   }, [session])
 
@@ -19,6 +20,7 @@ const Login: NextPage = () => {
     <div className={styles.main}>
       <div className={styles.login_area}>
         <h1 className={styles.login_title}>タスク管理アプリ</h1>
+        <br />
         <button onClick={() => signIn("google")} className={styles.login_btn}>ログイン</button>
       </div>
     </div>
