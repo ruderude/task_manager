@@ -26,7 +26,7 @@ const Login: NextPage = () => {
           <div className={styles.login_area}>
             <h1 className={styles.login_title}>タスク管理アプリ</h1>
             <br />
-              <button onClick={() => signIn("google", { callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}`})} className={styles.login_btn}>Googleログイン</button>
+              <button onClick={() => signIn("google", { callbackUrl: "/"})} className={styles.login_btn}>Googleログイン</button>
           </div>
         </div>
       }
