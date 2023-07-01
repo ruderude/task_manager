@@ -220,98 +220,102 @@ export default function Home() {
         <br />
         <div className={styles.main}>
           <h1>タスク管理アプリ</h1>
-          <>
-            <div className={styles.profile_area}>
-              {user.image &&
-                <div>
-                  <Image className={styles.image} src={user.image} alt="" width={120} height={120} />
+          {user.id ?
+            <>
+              <div className={styles.profile_area}>
+                {user.image &&
+                  <div>
+                    <Image className={styles.image} src={user.image} alt="" width={120} height={120} />
+                  </div>
+                }
+                <div className={styles.name}>
+                  {user.name && <p>名前：{user.name}</p>}
+                </div>
+                <div className={styles.btn_area}>
+                  {/* <button className={styles.previous_btn}>
+                    <Link href={`/previous`}>過去のタスク</Link>
+                  </button> */}
+                  <button className={styles.logout_btn} onClick={() => signOut()}>ログアウト</button>
+                </div>
+              </div>
+              <br />
+              <div>
+                <form onSubmit={handleSubmit(createTask)}>
+                  <div>
+                    <label htmlFor="task">新規タスク追加</label>
+                  </div>
+                  <div className={styles.new_task}>
+                    <div>
+                      <input
+                        className={styles.task_input}
+                        id="task"
+                        type="text"
+                        {...register('task', {
+                          required: {
+                            value: true,
+                            message: 'タスクの入力は必須です。',
+                          },
+                          maxLength: {
+                            value: 250,
+                            message: '250文字以下で入力してください。',
+                          },
+                        })}
+                      />
+                    </div>
+                    <div>
+                      <button className={styles.submit_btn} type="submit" disabled={isDisabled}>追加</button>
+                    </div>
+                  </div>
+                  {errors.task?.type === 'required' && (
+                    <div className={styles.error}>{ errors.task?.message }</div>
+                  )}
+                  {errors.task?.type === 'maxLength' && (
+                    <div className={styles.error}>{ errors.task?.message }</div>
+                  )}
+                </form>
+              </div>
+              <br />
+              <hr />
+              <br />
+              <h2>現在のタスク一覧</h2>
+              <br />
+              {tasks.length > 0 ?
+                <>
+                  <div className={styles.tasks}>
+                  {
+                    tasks.map((task: TaskProps) => {
+                      return (
+                        <div key={task.id}>
+                          <div className={`${task.done ? styles.done : ""} ${styles.task_title} ${styles.word_turn}`}>{task.title}</div>
+                          <div className={styles.task_under}>
+                            <div className={styles.task_created}>{setDateString(task.createdAt)}</div>
+                            <div className={styles.task_btn_area}>
+                              {
+                                task.done ?
+                                  <button className={styles.task_undone_btn} onClick={() => updateTask(Number(task.id), task.done)} disabled={isDisabled}>未完了</button>
+                                  :
+                                  <button className={styles.task_done_btn} onClick={() => updateTask(Number(task.id), task.done)} disabled={isDisabled}>完了</button>
+                              }
+                              
+                              <button className={styles.task_delete_btn} onClick={() => deleteTask(Number(task.id))} disabled={isDisabled}>削除</button>
+                            </div>
+                          </div>
+                          <hr className={styles.task_under_line} />
+                        </div>
+                      )
+                    })
+                  }
+                  </div>
+                </>
+                :
+                <div className={styles.main}>
+                  <h1 className={styles.none_area}>-----</h1>
                 </div>
               }
-              <div className={styles.name}>
-                {user.name && <p>名前：{user.name}</p>}
-              </div>
-              <div className={styles.btn_area}>
-                {/* <button className={styles.previous_btn}>
-                  <Link href={`/previous`}>過去のタスク</Link>
-                </button> */}
-                <button className={styles.logout_btn} onClick={() => signOut()}>ログアウト</button>
-              </div>
-            </div>
-            <br />
-            <div>
-              <form onSubmit={handleSubmit(createTask)}>
-                <div>
-                  <label htmlFor="task">新規タスク追加</label>
-                </div>
-                <div className={styles.new_task}>
-                  <div>
-                    <input
-                      className={styles.task_input}
-                      id="task"
-                      type="text"
-                      {...register('task', {
-                        required: {
-                          value: true,
-                          message: 'タスクの入力は必須です。',
-                        },
-                        maxLength: {
-                          value: 250,
-                          message: '250文字以下で入力してください。',
-                        },
-                      })}
-                    />
-                  </div>
-                  <div>
-                    <button className={styles.submit_btn} type="submit" disabled={isDisabled}>追加</button>
-                  </div>
-                </div>
-                {errors.task?.type === 'required' && (
-                  <div className={styles.error}>{ errors.task?.message }</div>
-                )}
-                {errors.task?.type === 'maxLength' && (
-                  <div className={styles.error}>{ errors.task?.message }</div>
-                )}
-              </form>
-            </div>
-            <br />
-            <hr />
-            <br />
-            <h2>現在のタスク一覧</h2>
-            <br />
-            {tasks.length > 0 ?
-              <>
-                <div className={styles.tasks}>
-                {
-                  tasks.map((task: TaskProps) => {
-                    return (
-                      <div key={task.id}>
-                        <div className={`${task.done ? styles.done : ""} ${styles.task_title} ${styles.word_turn}`}>{task.title}</div>
-                        <div className={styles.task_under}>
-                          <div className={styles.task_created}>{setDateString(task.createdAt)}</div>
-                          <div className={styles.task_btn_area}>
-                            {
-                              task.done ?
-                                <button className={styles.task_undone_btn} onClick={() => updateTask(Number(task.id), task.done)} disabled={isDisabled}>未完了</button>
-                                :
-                                <button className={styles.task_done_btn} onClick={() => updateTask(Number(task.id), task.done)} disabled={isDisabled}>完了</button>
-                            }
-                            
-                            <button className={styles.task_delete_btn} onClick={() => deleteTask(Number(task.id))} disabled={isDisabled}>削除</button>
-                          </div>
-                        </div>
-                        <hr className={styles.task_under_line} />
-                      </div>
-                    )
-                  })
-                }
-                </div>
-              </>
-              :
-              <div className={styles.main}>
-                <h1 className={styles.none_area}>-----</h1>
-              </div>
-            }
-          </>
+            </>
+            :
+            loadingNode()
+          }
         </div>
       </main>
     </>
