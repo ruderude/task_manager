@@ -46,7 +46,7 @@ const Login: NextPage = () => {
           <div className={styles.login_area}>
             <h1 className={styles.login_title}>タスク管理アプリ</h1>
             <br />
-              <button onClick={() => doLogin()} className={styles.login_btn} disabled={isDisabled}>Googleログイン</button>
+              <button onClick={() => doLogin()} className={`${isDisabled ? styles.disabled : ""} ${styles.login_btn}`} disabled={isDisabled}>Googleログイン</button>
           </div>
         </div>
       }
