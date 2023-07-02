@@ -1,8 +1,9 @@
-import NextAuth, { NextAuthOptions } from 'next-auth'
+import NextAuth, { NextAuthOptions, SessionStrategy } from 'next-auth'
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import GoogleProvider from 'next-auth/providers/google'
 import { PrismaClient } from "@prisma/client"
 import { custom } from 'openid-client'
+import { Session } from 'inspector'
 
 custom.setHttpOptionsDefaults({
   timeout: 10000,
@@ -30,6 +31,7 @@ const authOptions: NextAuthOptions = {
     }
   },
   secret: process.env.NEXTAUTH_SECRET,
+  session: {strategy: 'database' as SessionStrategy},
 }
 
 export default NextAuth(authOptions)
