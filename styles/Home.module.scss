@@ -235,6 +235,11 @@
   color: #999999;
 }
 
+.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
 .word_turn {
   word-wrap: break-word;
   word-break: break-all;

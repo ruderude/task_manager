@@ -55,6 +55,11 @@ export default function Home() {
     task.value = ''
   }
 
+  const doLogout = () => {
+    setDisabled(true)
+    signOut()
+  }
+
   const loadingNode = () => {
     return (
       <div className={styles.main_loading}>
@@ -235,7 +240,7 @@ export default function Home() {
                   {/* <button className={styles.previous_btn}>
                     <Link href={`/previous`}>過去のタスク</Link>
                   </button> */}
-                  <button className={styles.logout_btn} onClick={() => signOut()}>ログアウト</button>
+                  <button className={`${isDisabled ? styles.disabled : ""} ${styles.logout_btn}`} onClick={() => doLogout()} disabled={isDisabled}>ログアウト</button>
                 </div>
               </div>
               <br />
@@ -263,7 +268,7 @@ export default function Home() {
                       />
                     </div>
                     <div>
-                      <button className={styles.submit_btn} type="submit" disabled={isDisabled}>追加</button>
+                      <button className={`${isDisabled ? styles.disabled : ""} ${styles.submit_btn}`} type="submit" disabled={isDisabled}>追加</button>
                     </div>
                   </div>
                   {errors.task?.type === 'required' && (
@@ -292,12 +297,12 @@ export default function Home() {
                             <div className={styles.task_btn_area}>
                               {
                                 task.done ?
-                                  <button className={styles.task_undone_btn} onClick={() => updateTask(Number(task.id), task.done)} disabled={isDisabled}>未完了</button>
+                                  <button className={`${isDisabled ? styles.disabled : ""} ${styles.task_undone_btn}`} onClick={() => updateTask(Number(task.id), task.done)} disabled={isDisabled}>未完了</button>
                                   :
-                                  <button className={styles.task_done_btn} onClick={() => updateTask(Number(task.id), task.done)} disabled={isDisabled}>完了</button>
+                                  <button className={`${isDisabled ? styles.disabled : ""} ${styles.task_done_btn}`} onClick={() => updateTask(Number(task.id), task.done)} disabled={isDisabled}>完了</button>
                               }
                               
-                              <button className={styles.task_delete_btn} onClick={() => deleteTask(Number(task.id))} disabled={isDisabled}>削除</button>
+                              <button className={`${isDisabled ? styles.disabled : ""} ${styles.task_delete_btn}`} onClick={() => deleteTask(Number(task.id))} disabled={isDisabled}>削除</button>
                             </div>
                           </div>
                           <hr className={styles.task_under_line} />
